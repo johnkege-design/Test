@@ -242,21 +242,21 @@
 </main>
 
 <!-- NAVIGATION -->
-<nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-slate-900/95 glass border-t border-slate-800 rounded-t-3xl px-2 py-2 z-50 shadow-2xl">
+<nav class="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto bg-slate-900/95 glass border-t border-slate-800 rounded-t-3xl px-2 py-2 z-50 shadow-2xl">
 
-    <div class="flex justify-around items-center">
+    <div class="flex justify-around items-center w-full">
 
-        <button onclick="changeTab('page-programs', this)" class="nav-item flex flex-col items-center text-amber-500">
+        <button onclick="changeTab('page-programs', this)" class="nav-item flex flex-col items-center justify-center flex-1 py-2 text-amber-500 active:scale-95 transition-all">
             <span class="material-symbols-rounded text-2xl">dashboard</span>
             <span class="text-[10px] font-bold">Timeline</span>
         </button>
 
-        <button onclick="changeTab('page-prayers', this)" class="nav-item flex flex-col items-center text-slate-400">
+        <button onclick="changeTab('page-prayers', this)" class="nav-item flex flex-col items-center justify-center flex-1 py-2 text-slate-400 active:scale-95 transition-all">
             <span class="material-symbols-rounded text-2xl">favorite</span>
             <span class="text-[10px] font-bold">Prayers</span>
         </button>
 
-        <button onclick="changeTab('page-about', this)" class="nav-item flex flex-col items-center text-slate-400">
+        <button onclick="changeTab('page-about', this)" class="nav-item flex flex-col items-center justify-center flex-1 py-2 text-slate-400 active:scale-95 transition-all">
             <span class="material-symbols-rounded text-2xl">info</span>
             <span class="text-[10px] font-bold">About</span>
         </button>
@@ -398,6 +398,8 @@
     };
 
     function changeTab(pageId, element) {
+
+        if(!element) return;
 
         ['page-programs', 'page-prayers', 'page-about'].forEach(id => {
             document.getElementById(id).classList.add('hidden');
@@ -591,6 +593,13 @@
     window.addEventListener('DOMContentLoaded', () => {
         loadPrograms();
         renderBranches('en');
+
+        // activate first tab visually
+        const firstTab = document.querySelector('.nav-item');
+        if(firstTab){
+            firstTab.classList.remove('text-slate-400');
+            firstTab.classList.add('text-amber-500');
+        }
     });
 
 </script>
