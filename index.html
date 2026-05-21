@@ -513,5 +513,88 @@
                             ${branch.name}
                         </h3>
 
-                        <p cl
+                        <p class="text-slate-400 text-xs mt-1">
+                            📍 ${branch.city}
+                        </p>
+                    </div>
+
+                    ${branch.special ? `
+                        <div class="bg-amber-500 text-slate-950 text-[10px] font-black px-2 py-1 rounded-lg uppercase tracking-widest">
+                            Mother Church
+                        </div>
+                    ` : ''}
+                </div>
+
+                <div class="mt-5 space-y-2">
+
+                    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3 flex justify-between items-center">
+                        <span class="font-semibold text-white text-sm">${t.wed}</span>
+                        <span class="text-xs font-bold text-amber-400">6:00 PM</span>
+                    </div>
+
+                    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3 flex justify-between items-center">
+                        <span class="font-semibold text-white text-sm">${t.sun}</span>
+                        <span class="text-xs font-bold text-amber-400">8:00 AM</span>
+                    </div>
+
+                    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3 flex justify-between items-center">
+                        <span class="font-semibold text-white text-sm">${t.sat}</span>
+                        <span class="text-xs font-bold text-amber-400">4:00 PM</span>
+                    </div>
+
+                    ${branch.special ? `
+                        <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-3 flex justify-between items-center">
+                            <span class="font-bold text-amber-300 text-sm">${t.fri}</span>
+                            <span class="text-xs font-black text-amber-400">10:00 PM</span>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+
+        `).join('');
+    }
+
+    function switchLanguage() {
+        const lang = document.getElementById('language-selector').value;
+        renderBranches(lang);
+    }
+
+    document.getElementById('prayer-form').addEventListener('submit', async (e) => {
+
+        e.preventDefault();
+
+        const n = document.getElementById('prayer-name').value || 'Anonymous';
+        const r = document.getElementById('prayer-text').value;
+
+        try {
+
+            await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `action=addPrayer&name=${encodeURIComponent(n)}&request=${encodeURIComponent(r)}`
+            });
+
+            document.getElementById('prayer-form').reset();
+            document.getElementById('prayer-success').classList.remove('hidden');
+
+            setTimeout(() => {
+                document.getElementById('prayer-success').classList.add('hidden');
+            }, 4000);
+
+        } catch (e) {
+            alert('Submission failed');
+        }
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+        loadPrograms();
+        renderBranches('en');
+    });
+
+</script>
 ```
+
+</body>
+</html>
