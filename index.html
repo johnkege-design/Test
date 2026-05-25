@@ -108,7 +108,7 @@
                     <span class="text-xs font-black text-slate-900 dark:text-white block">Telegram Group</span>
                     <span class="text-[9px] text-blue-600 dark:text-blue-400 block mt-0.5">24/7 Virtual Altars</span>
                 </a>
-                <div class="bg-yellow-500/10 dark:bg-amber-500/5 border border-yellow-500/20 dark:border-amber-500/10 p-4 rounded-2xl text-center shadow-sm">
+                <div class="bg-yellow-500/10 dark:bg-amber-500/5 border border-yellow-500/20 dark:amber-500/10 p-4 rounded-2xl text-center shadow-sm">
                     <span class="material-symbols-rounded text-2xl text-amber-600 dark:text-amber-400 mx-auto block mb-1">nights_stay</span>
                     <span class="text-xs font-black text-slate-900 dark:text-white block" data-i18n="anchorFriday">Friday Prayer Night</span>
                     <span class="text-[9px] text-amber-700 dark:text-amber-400/80 block mt-0.5 font-medium">9:00 PM • Mother Church</span>
@@ -210,8 +210,30 @@
         </div>
     </div>
 
+    <div id="auth-modal" class="fixed inset-0 z-50 hidden bg-slate-900/40 dark:bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="w-full max-w-sm rounded-3xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 shadow-xl">
+            <h2 class="text-xl font-black text-slate-900 dark:text-white text-center mb-1" data-i18n="authModalTitle">Portal Authentication</h2>
+            <p class="text-center text-[11px] text-slate-400 dark:text-slate-500 mb-4" data-i18n="authModalDesc">Sign in using your registered phone number credentials</p>
+            
+            <form id="auth-form" onsubmit="handleAuthSubmit(event)" class="space-y-3.5">
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1" data-i18n="labelRegPhone">Phone Number</label>
+                    <input type="tel" id="auth-phone" placeholder="0911000000" required class="w-full rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 text-xs text-slate-800 dark:text-white focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1" data-i18n="labelAccessCode">Access Passcode</label>
+                    <input type="password" id="auth-password" placeholder="••••••••" required class="w-full rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 text-xs text-slate-800 dark:text-white focus:outline-none">
+                </div>
+                
+                <button type="submit" class="w-full mt-2 rounded-xl bg-amber-500 hover:bg-amber-600 py-3 text-xs font-black text-slate-950 uppercase tracking-wider shadow-md transition-transform active:scale-98">
+                    Verify Access
+                </button>
+            </form>
+            <button onclick="toggleAuthModal()" class="w-full text-center text-xs font-bold text-slate-400 dark:text-slate-500 mt-4 hover:underline">Cancel</button>
+        </div>
+    </div>
+
     <script>
-        // INTEGRATED LIVE APPS SCRIPT ENDPOINT URL
         const API_URL = "https://script.google.com/macros/s/AKfycbzvHiAuYAriIQJaLnXcjaNiK-McCRMt7khNrKNHX29E7tIjWeTKjhegNcGyKsSWXsFcDQ/exec";
         let currentLang = 'en';
 
@@ -227,7 +249,9 @@
                 aboutTitle: "About Zetseat", aboutDesc: "Explore our ministry centers and fellowship structures",
                 navTimeline: "Timeline", navEvents: "Events", navPrayers: "Prayers", navAbout: "About", 
                 memberModalTitle: "Become a Member", memberModalDesc: "Enter your basic coordinates to join our digital catalog",
-                labelRegName: "Full Name", labelRegPhone: "Phone Number", labelRegCity: "City"
+                labelRegName: "Full Name", labelRegPhone: "Phone Number", labelRegCity: "City",
+                authModalTitle: "Portal Authentication", authModalDesc: "Sign in using your registered phone number credentials",
+                labelAccessCode: "Access Passcode"
             },
             am: {
                 btnBeMember: "አባል ይሁኑ", signIn: "ግባ", mottoTitle: "የራዕይ መግለጫ",
@@ -240,7 +264,9 @@
                 aboutTitle: "ስለ እኛ", aboutDesc: "ስለ አገልግሎታችንና ስለ ቅርንጫፎች ማጠቃለያ መረጃ",
                 navTimeline: "ጊዜ ሰሌዳ", navEvents: "ክንውኖች", navPrayers: "ጸሎት", navAbout: "ስለ እኛ", 
                 memberModalTitle: "የአባልነት ፎርም", memberModalDesc: "መሰረታዊ መረጃዎችን በመሙላት አባልነቶን ያረጋግጡ",
-                labelRegName: "ሙሉ ስም", labelRegPhone: "ስልክ ቁጥር", labelRegCity: "ከተማ"
+                labelRegName: "ሙሉ ስም", labelRegPhone: "ስልክ ቁጥር", labelRegCity: "ከተማ",
+                authModalTitle: "መግቢያ ገጽ", authModalDesc: "በመዝገብ ላይ ባለው ስልክ ቁጥርዎ ይግቡ",
+                labelAccessCode: "የይለፍ ቃል"
             },
             or: {
                 btnBeMember: "Mee Dabalami", signIn: "Seeni", mottoTitle: "Mul'ata Keenya",
@@ -253,11 +279,12 @@
                 aboutTitle: "Waa'ee Keenya", aboutDesc: "Mata duree fi sagantaa waajjirooota",
                 navTimeline: "Sagantaa", navEvents: "Gochaalee", navPrayers: "Kadhannaa", navAbout: "Waa'ee", 
                 memberModalTitle: "Miseensa Tahi", memberModalDesc: "Galmee keenya join gochuuf odeeffannoo keessan guutaa",
-                labelRegName: "Maqaa Guutuu", labelRegPhone: "Lakk Bilbilaa", labelRegCity: "Magaalaa"
+                labelRegName: "Maqaa Guutuu", labelRegPhone: "Lakk Bilbilaa", labelRegCity: "Magaalaa",
+                authModalTitle: "Seensa Portal", authModalDesc: "Lakk bilbilaa keessan galchuun seenaa",
+                labelAccessCode: "Jecha Iccitii"
             }
         };
 
-        // Standard Device Dark Mode Synchronization Routine
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.classList.add('dark');
         }
@@ -266,7 +293,6 @@
             document.documentElement.classList.toggle('dark');
         }
 
-        // Initialize App to open on Timeline and immediately fetch spreadsheet rows
         window.addEventListener('DOMContentLoaded', () => { 
             changeLanguage('en'); 
             changeTab('page-programs', document.getElementById('nav-btn-programs'));
@@ -308,9 +334,10 @@
         }
 
         function toggleMemberModal() { document.getElementById('member-modal').classList.toggle('hidden'); }
-        function toggleAuthModal() { alert("Operational authentication module active."); }
+        
+        // TOGGLE LOGIC FOR NEW SIGN IN MODAL
+        function toggleAuthModal() { document.getElementById('auth-modal').classList.toggle('hidden'); }
 
-        // AUTOMATIC DATA PULL ENGINE FOR THE TIMELINE VIEWPORT
         function fetchTimelineData() {
             const container = document.getElementById('programs-container');
 
@@ -318,7 +345,7 @@
                 .then(response => response.json())
                 .then(res => {
                     if (res.status === "success" && res.data.length > 0) {
-                        container.innerHTML = ""; // Clear layout pulse loader
+                        container.innerHTML = "";
                         
                         res.data.forEach(item => {
                             const card = document.createElement('div');
@@ -343,10 +370,8 @@
                 });
         }
 
-        // BACKEND FORWARDING DISPATCH PIPELINE FOR MEMBERSHIP INTAKE
         function handleRegistrationSubmit(event) {
             event.preventDefault();
-            
             const submitButton = event.target.querySelector('button[type="submit"]');
             submitButton.innerText = "Processing...";
             submitButton.disabled = true;
@@ -378,6 +403,34 @@
                 submitButton.innerText = "Submit Profile";
                 submitButton.disabled = false;
             });
+        }
+
+        // AUTHENTICATION FORM DISPATCH DISPATCH PIPELINE
+        function handleAuthSubmit(event) {
+            event.preventDefault();
+            const submitButton = event.target.querySelector('button[type="submit"]');
+            submitButton.innerText = "Checking...";
+            submitButton.disabled = true;
+
+            const phone = document.getElementById('auth-phone').value.trim();
+            const password = document.getElementById('auth-password').value.trim();
+
+            // Placeholder login checking layout logic—you can pipe this to look up columns in your Sheet!
+            setTimeout(() => {
+                if(phone && password) {
+                    alert(`Welcome back! Secure session initialized.`);
+                    document.getElementById('auth-form').reset();
+                    toggleAuthModal();
+                    
+                    // Transform the header button to show active session state
+                    document.getElementById('auth-text').innerText = "Active Profile";
+                    document.getElementById('auth-icon').innerText = "account_circle";
+                } else {
+                    alert("Authentication rejected. Invalid credentials.");
+                }
+                submitButton.innerText = "Verify Access";
+                submitButton.disabled = false;
+            }, 1200);
         }
     </script>
 </body>
