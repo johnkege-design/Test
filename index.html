@@ -30,21 +30,16 @@
                 <span class="material-symbols-rounded text-sm hidden dark:block">light_mode</span>
             </button>
 
-            <button onclick="toggleMemberModal()" class="flex items-center space-x-1 px-2.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-xs font-black text-slate-950 transition-all active:scale-95 shadow-sm">
+            <button onclick="toggleMemberModal()" class="flex items-center space-x-1 px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-xs font-black text-slate-950 transition-all active:scale-95 shadow-sm">
                 <span class="material-symbols-rounded text-sm">person_add</span>
                 <span data-i18n="btnBeMember">Join Us</span>
             </button>
 
-            <select id="lang-selector" onchange="changeLanguage(this.value)" class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-1.5 py-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none">
+            <select id="lang-selector" onchange="changeLanguage(this.value)" class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-2 py-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none">
                 <option value="en">EN</option>
                 <option value="am">አማ</option>
                 <option value="or">OR</option>
             </select>
-
-            <button id="auth-btn" onclick="toggleAuthModal()" class="flex items-center space-x-1 px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 active:scale-95">
-                <span class="material-symbols-rounded text-sm" id="auth-icon">login</span>
-                <span id="auth-text" data-i18n="signIn">Sign In</span>
-            </button>
         </div>
     </header>
 
@@ -108,7 +103,7 @@
                     <span class="text-xs font-black text-slate-900 dark:text-white block">Telegram Group</span>
                     <span class="text-[9px] text-blue-600 dark:text-blue-400 block mt-0.5">24/7 Virtual Altars</span>
                 </a>
-                <div class="bg-yellow-500/10 dark:bg-amber-500/5 border border-yellow-500/20 dark:amber-500/10 p-4 rounded-2xl text-center shadow-sm">
+                <div class="bg-yellow-500/10 dark:bg-amber-500/5 border border-yellow-500/20 dark:border-amber-500/10 p-4 rounded-2xl text-center shadow-sm">
                     <span class="material-symbols-rounded text-2xl text-amber-600 dark:text-amber-400 mx-auto block mb-1">nights_stay</span>
                     <span class="text-xs font-black text-slate-900 dark:text-white block" data-i18n="anchorFriday">Friday Prayer Night</span>
                     <span class="text-[9px] text-amber-700 dark:text-amber-400/80 block mt-0.5 font-medium">9:00 PM • Mother Church</span>
@@ -155,31 +150,32 @@
 
     <nav class="fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-slate-950/95 backdrop-blur-lg border-t border-slate-100 dark:border-slate-900 px-1 py-2 z-40 shadow-[0_-4px_12px_rgba(0,0,0,0.02)] max-w-md mx-auto rounded-t-3xl transition-colors">
         <div class="flex justify-around items-center">
-            <button id="nav-btn-programs" onclick="changeTab('page-programs', this)" class="nav-item flex flex-col items-center space-y-0.5 py-1 px-2 text-slate-400 dark:text-slate-500">
-                <span class="material-symbols-rounded text-2xl">dashboard</span>
-                <span class="text-[10px] font-bold" data-i18n="navTimeline">Timeline</span>
+            
+            <button id="nav-btn-programs" onclick="changeTab('page-programs', this)" class="nav-item flex flex-col items-center space-y-1 p-2 text-amber-500 transition-colors">
+                <span class="material-symbols-rounded text-2xl">home</span>
+                <span class="text-[10px] font-bold" data-i18n="navHome">Home</span>
             </button>
-            <button onclick="changeTab('page-events', this)" class="nav-item flex flex-col items-center space-y-0.5 py-1 px-2 text-slate-400 dark:text-slate-500">
-                <span class="material-symbols-rounded text-2xl">campaign</span>
+            
+            <button id="nav-btn-events" onclick="changeTab('page-events', this)" class="nav-item flex flex-col items-center space-y-1 p-2 text-slate-400 dark:text-slate-500 hover:text-amber-500 transition-colors">
+                <span class="material-symbols-rounded text-2xl">event</span>
                 <span class="text-[10px] font-bold" data-i18n="navEvents">Events</span>
             </button>
-            
-            <button onclick="changeTab('page-bible', this)" class="nav-item flex flex-col items-center space-y-0.5 py-1 px-2 text-slate-400 relative">
-                <div class="w-10 h-10 -mt-6 bg-gradient-to-tr from-amber-500 to-yellow-400 text-slate-950 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform">
-                    <span class="material-symbols-rounded text-2xl font-black">auto_stories</span>
-                </div>
-                <span class="text-[10px] font-black tracking-wide text-amber-500 mt-0.5 uppercase">BIBLE</span>
+             
+            <button id="nav-btn-bible" onclick="changeTab('page-bible', this)" class="nav-item flex flex-col items-center space-y-1 p-2 text-slate-400 dark:text-slate-500 hover:text-amber-500 transition-colors relative">
+                <span class="material-symbols-rounded text-2xl">menu_book</span>
+                <span class="text-[10px] font-bold" data-i18n="navBible">Bible</span>
             </button>
-
-            <button onclick="changeTab('page-prayers', this)" class="nav-item flex flex-col items-center space-y-0.5 py-1 px-2 text-slate-400 dark:text-slate-500">
-                <span class="material-symbols-rounded text-2xl">favorite</span>
+            
+            <button id="nav-btn-prayers" onclick="changeTab('page-prayers', this)" class="nav-item flex flex-col items-center space-y-1 p-2 text-slate-400 dark:text-slate-500 hover:text-amber-500 transition-colors">
+                <span class="material-symbols-rounded text-2xl">volunteer_activism</span>
                 <span class="text-[10px] font-bold" data-i18n="navPrayers">Prayers</span>
             </button>
-            
-            <button onclick="changeTab('page-about', this)" class="nav-item flex flex-col items-center space-y-0.5 py-1 px-2 text-slate-400 dark:text-slate-500">
+
+            <button id="nav-btn-about" onclick="changeTab('page-about', this)" class="nav-item flex flex-col items-center space-y-1 p-2 text-slate-400 dark:text-slate-500 hover:text-amber-500 transition-colors">
                 <span class="material-symbols-rounded text-2xl">info</span>
                 <span class="text-[10px] font-bold" data-i18n="navAbout">About</span>
             </button>
+
         </div>
     </nav>
 
@@ -210,36 +206,15 @@
         </div>
     </div>
 
-    <div id="auth-modal" class="fixed inset-0 z-50 hidden bg-slate-900/40 dark:bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="w-full max-w-sm rounded-3xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 shadow-xl">
-            <h2 class="text-xl font-black text-slate-900 dark:text-white text-center mb-1" data-i18n="authModalTitle">Portal Authentication</h2>
-            <p class="text-center text-[11px] text-slate-400 dark:text-slate-500 mb-4" data-i18n="authModalDesc">Sign in using your registered phone number credentials</p>
-            
-            <form id="auth-form" onsubmit="handleAuthSubmit(event)" class="space-y-3.5">
-                <div>
-                    <label class="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1" data-i18n="labelRegPhone">Phone Number</label>
-                    <input type="tel" id="auth-phone" placeholder="0911000000" required class="w-full rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 text-xs text-slate-800 dark:text-white focus:outline-none">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1" data-i18n="labelAccessCode">Access Passcode</label>
-                    <input type="password" id="auth-password" placeholder="••••••••" required class="w-full rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 text-xs text-slate-800 dark:text-white focus:outline-none">
-                </div>
-                
-                <button type="submit" class="w-full mt-2 rounded-xl bg-amber-500 hover:bg-amber-600 py-3 text-xs font-black text-slate-950 uppercase tracking-wider shadow-md transition-transform active:scale-98">
-                    Verify Access
-                </button>
-            </form>
-            <button onclick="toggleAuthModal()" class="w-full text-center text-xs font-bold text-slate-400 dark:text-slate-500 mt-4 hover:underline">Cancel</button>
-        </div>
-    </div>
-
     <script>
+        // YOUR LIVE APPS SCRIPT URL
         const API_URL = "https://script.google.com/macros/s/AKfycbzvHiAuYAriIQJaLnXcjaNiK-McCRMt7khNrKNHX29E7tIjWeTKjhegNcGyKsSWXsFcDQ/exec";
+        
         let currentLang = 'en';
 
         const i18n = {
             en: {
-                btnBeMember: "Join Us", signIn: "Sign In", mottoTitle: "Our Mission Identity",
+                btnBeMember: "Join Us", mottoTitle: "Our Mission Identity",
                 mottoText: `"To see a generation suitable to God risen in the whole world."`,
                 timelineTitle: "Timeline", timelineDesc: "Social media updates, streams, and dynamic announcements",
                 eventsTitle: "Upcoming Events", eventsDesc: "Acts of kindness, evangelism pushes, and outreach programs",
@@ -247,14 +222,12 @@
                 anchorFriday: "Friday Prayer Night", labelName: "Your Name", labelDetails: "Request Details",
                 btnSubmitPrayer: "Send Request", bibleTitle: "Bible Center", bibleDesc: "Read and study scripture live inside the portal",
                 aboutTitle: "About Zetseat", aboutDesc: "Explore our ministry centers and fellowship structures",
-                navTimeline: "Timeline", navEvents: "Events", navPrayers: "Prayers", navAbout: "About", 
+                navHome: "Home", navEvents: "Events", navBible: "Bible", navPrayers: "Prayers", navAbout: "About", 
                 memberModalTitle: "Become a Member", memberModalDesc: "Enter your basic coordinates to join our digital catalog",
-                labelRegName: "Full Name", labelRegPhone: "Phone Number", labelRegCity: "City",
-                authModalTitle: "Portal Authentication", authModalDesc: "Sign in using your registered phone number credentials",
-                labelAccessCode: "Access Passcode"
+                labelRegName: "Full Name", labelRegPhone: "Phone Number", labelRegCity: "City"
             },
             am: {
-                btnBeMember: "አባል ይሁኑ", signIn: "ግባ", mottoTitle: "የራዕይ መግለጫ",
+                btnBeMember: "አባል ይሁኑ", mottoTitle: "የራዕይ መግለጫ",
                 mottoText: `"ለእግዚአብሔር የሚስማማ ትውልድ በዓለም ሁሉ ላይ ተነስቶ ማየት::"`,
                 timelineTitle: "ጊዜ ሰሌዳ", timelineDesc: "የማህበራዊ ሚዲያ መረጃዎች እና የቀጥታ ስርጭቶች መከታተያ",
                 eventsTitle: "የሚቀጥሉ መርሃ-ግብሮች", eventsDesc: "የበጎ አድራጎት ስራዎች፣ የወንጌል ስርጭት እና የውጪ አገልግሎቶች",
@@ -262,14 +235,12 @@
                 anchorFriday: "የአርብ የጸሎት ምሽት", labelName: "ሙሉ ስም", labelDetails: "የጸሎት ነጥብ ዝርዝር",
                 btnSubmitPrayer: "ጥያቄውን ላክ", bibleTitle: "መጽሐፍ ቅዱስ", bibleDesc: "የእግዚአብሔርን ቃል በቀጥታ ያንብቡና ያጥኑ",
                 aboutTitle: "ስለ እኛ", aboutDesc: "ስለ አገልግሎታችንና ስለ ቅርንጫፎች ማጠቃለያ መረጃ",
-                navTimeline: "ጊዜ ሰሌዳ", navEvents: "ክንውኖች", navPrayers: "ጸሎት", navAbout: "ስለ እኛ", 
+                navHome: "ዋና", navEvents: "ክንውኖች", navBible: "መጽሐፍ ቅዱስ", navPrayers: "ጸሎት", navAbout: "ስለ እኛ", 
                 memberModalTitle: "የአባልነት ፎርም", memberModalDesc: "መሰረታዊ መረጃዎችን በመሙላት አባልነቶን ያረጋግጡ",
-                labelRegName: "ሙሉ ስም", labelRegPhone: "ስልክ ቁጥር", labelRegCity: "ከተማ",
-                authModalTitle: "መግቢያ ገጽ", authModalDesc: "በመዝገብ ላይ ባለው ስልክ ቁጥርዎ ይግቡ",
-                labelAccessCode: "የይለፍ ቃል"
+                labelRegName: "ሙሉ ስም", labelRegPhone: "ስልክ ቁጥር", labelRegCity: "ከተማ"
             },
             or: {
-                btnBeMember: "Mee Dabalami", signIn: "Seeni", mottoTitle: "Mul'ata Keenya",
+                btnBeMember: "Mee Dabalami", mottoTitle: "Mul'ata Keenya",
                 mottoText: `"Dhaloota Waaqayyoof ta'u addunyaa irratti ka'ee arguu."`,
                 timelineTitle: "Sagantaalee", timelineDesc: "Tamsaasa qajeelaa fi beeksisa adda addaa",
                 eventsTitle: "Sagantaalee Dhufan", eventsDesc: "Hojiiwwan gaarii, tajaajila wangeelaa fi duula adda addaa",
@@ -277,14 +248,13 @@
                 anchorFriday: "Kadhannaa Jimmataa", labelName: "Maqaa Keessan", labelDetails: "Bal'ina Kadhannaa",
                 btnSubmitPrayer: "Kadhannaa Ergi", bibleTitle: "Macaafa Qulqulluu", bibleDesc: "Dubbisi, sagantaa qayyabannaa hordofi",
                 aboutTitle: "Waa'ee Keenya", aboutDesc: "Mata duree fi sagantaa waajjirooota",
-                navTimeline: "Sagantaa", navEvents: "Gochaalee", navPrayers: "Kadhannaa", navAbout: "Waa'ee", 
+                navHome: "Gala", navEvents: "Gochaalee", navBible: "Macaafa", navPrayers: "Kadhannaa", navAbout: "Waa'ee", 
                 memberModalTitle: "Miseensa Tahi", memberModalDesc: "Galmee keenya join gochuuf odeeffannoo keessan guutaa",
-                labelRegName: "Maqaa Guutuu", labelRegPhone: "Lakk Bilbilaa", labelRegCity: "Magaalaa",
-                authModalTitle: "Seensa Portal", authModalDesc: "Lakk bilbilaa keessan galchuun seenaa",
-                labelAccessCode: "Jecha Iccitii"
+                labelRegName: "Maqaa Guutuu", labelRegPhone: "Lakk Bilbilaa", labelRegCity: "Magaalaa"
             }
         };
 
+        // Dark Mode Setup
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.classList.add('dark');
         }
@@ -293,6 +263,7 @@
             document.documentElement.classList.toggle('dark');
         }
 
+        // Initialization
         window.addEventListener('DOMContentLoaded', () => { 
             changeLanguage('en'); 
             changeTab('page-programs', document.getElementById('nav-btn-programs'));
@@ -334,19 +305,19 @@
         }
 
         function toggleMemberModal() { document.getElementById('member-modal').classList.toggle('hidden'); }
-        
-        // TOGGLE LOGIC FOR NEW SIGN IN MODAL
-        function toggleAuthModal() { document.getElementById('auth-modal').classList.toggle('hidden'); }
 
+        // Fetch Timeline Data from Google Sheet
         function fetchTimelineData() {
             const container = document.getElementById('programs-container');
-
+            
             fetch(`${API_URL}?action=getPrograms`)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) throw new Error("Network response was not ok");
+                    return response.json();
+                })
                 .then(res => {
-                    if (res.status === "success" && res.data.length > 0) {
+                    if (res.status === "success" && res.data && res.data.length > 0) {
                         container.innerHTML = "";
-                        
                         res.data.forEach(item => {
                             const card = document.createElement('div');
                             card.className = "bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-5 space-y-2 shadow-sm";
@@ -366,10 +337,15 @@
                 })
                 .catch(err => {
                     console.error("Timeline retrieval error:", err);
-                    container.innerHTML = `<div class="text-center text-xs text-red-400/80 py-6">Database synchronization offline. Check cloud deployment configurations.</div>`;
+                    container.innerHTML = `
+                        <div class="bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-900/40 p-4 rounded-xl text-center">
+                            <span class="text-red-500 dark:text-red-400 text-xs font-bold block mb-1">Failed to connect to Database.</span>
+                            <span class="text-[10px] text-slate-500">Ensure your Google Apps Script is deployed to 'Anyone'.</span>
+                        </div>`;
                 });
         }
 
+        // Post Registration Data to Google Sheet
         function handleRegistrationSubmit(event) {
             event.preventDefault();
             const submitButton = event.target.querySelector('button[type="submit"]');
@@ -404,180 +380,6 @@
                 submitButton.disabled = false;
             });
         }
-
-        // AUTHENTICATION FORM DISPATCH DISPATCH PIPELINE
-        function handleAuthSubmit(event) {
-            event.preventDefault();
-            const submitButton = event.target.querySelector('button[type="submit"]');
-            submitButton.innerText = "Checking...";
-            submitButton.disabled = true;
-
-            const phone = document.getElementById('auth-phone').value.trim();
-            const password = document.getElementById('auth-password').value.trim();
-
-            // Placeholder login checking layout logic—you can pipe this to look up columns in your Sheet!
-            setTimeout(() => {
-                if(phone && password) {
-                    alert(`Welcome back! Secure session initialized.`);
-                    document.getElementById('auth-form').reset();
-                    toggleAuthModal();
-                    
-                    // Transform the header button to show active session state
-                    document.getElementById('auth-text').innerText = "Active Profile";
-                    document.getElementById('auth-icon').innerText = "account_circle";
-                } else {
-                    alert("Authentication rejected. Invalid credentials.");
-                }
-                submitButton.innerText = "Verify Access";
-                submitButton.disabled = false;
-            }, 1200);
-        }
     </script>
 </body>
 </html>
-<nav class="fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-slate-950/95 backdrop-blur-lg border-t border-slate-100 dark:border-slate-900 px-1 py-2 z-40 shadow-[0_-4px_12px_rgba(0,0,0,0.02)] max-w-md mx-auto rounded-t-3xl transition-colors">
-        <div class="flex justify-around items-center">
-            <button id="nav-btn-programs" onclick="changeTab('page-programs', this)" class="nav-item flex flex-col items-center space-y-1 p-2 text-amber-500 transition-colors">
-                <span class="material-symbols-rounded text-2xl">home</span>
-                <span class="text-[10px] font-bold" data-i18n="navHome">Home</span>
-            </button>
-            <button id="nav-btn-events" onclick="changeTab('page-events', this)" class="nav-item flex flex-col items-center space-y-1 p-2 text-slate-400 dark:text-slate-500 hover:text-amber-500 transition-colors">
-                <span class="material-symbols-rounded text-2xl">event</span>
-                <span class="text-[10px] font-bold" data-i18n="navEvents">Events</span>
-            </button>
-            <button id="nav-btn-bible" onclick="changeTab('page-bible', this)" class="nav-item flex flex-col items-center space-y-1 p-2 text-slate-400 dark:text-slate-500 hover:text-amber-500 transition-colors">
-                <span class="material-symbols-rounded text-2xl">menu_book</span>
-                <span class="text-[10px] font-bold" data-i18n="navBible">Bible</span>
-            </button>
-            <button id="nav-btn-prayers" onclick="changeTab('page-prayers', this)" class="nav-item flex flex-col items-center space-y-1 p-2 text-slate-400 dark:text-slate-500 hover:text-amber-500 transition-colors">
-                <span class="material-symbols-rounded text-2xl">volunteer_activism</span>
-                <span class="text-[10px] font-bold" data-i18n="navPrayers">Prayers</span>
-            </button>
-        </div>
-    </nav>
-
-    <script>
-        // --- UI & TAB MANAGEMENT ---
-        function changeTab(tabId, btnElement) {
-            // Hide all sections
-            document.querySelectorAll('main > section, #page-bible').forEach(el => {
-                el.classList.add('hidden');
-            });
-            // Show target section
-            document.getElementById(tabId).classList.remove('hidden');
-
-            // Reset navigation colors
-            document.querySelectorAll('.nav-item').forEach(el => {
-                el.classList.remove('text-amber-500');
-                el.classList.add('text-slate-400', 'dark:text-slate-500');
-            });
-            // Highlight active button
-            btnElement.classList.remove('text-slate-400', 'dark:text-slate-500');
-            btnElement.classList.add('text-amber-500');
-            
-            // Hide mission banner on Bible tab to save space
-            const banner = document.getElementById('mission-motto-banner');
-            if(tabId === 'page-bible') {
-                banner.classList.add('hidden');
-            } else {
-                banner.classList.remove('hidden');
-            }
-        }
-
-        // --- DARK MODE LOGIC ---
-        function toggleDarkMode() {
-            document.documentElement.classList.toggle('dark');
-            const isDark = document.documentElement.classList.contains('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        }
-
-        // Check local storage for theme on load
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-
-        // --- GOOGLE SHEETS FETCH (DEBUGGING VERSION) ---
-        // Replace this with your actual Google Apps Script Web App URL
-        const GOOGLE_SHEET_API_URL = 'YOUR_APPS_SCRIPT_URL_HERE'; 
-
-        async function fetchSheetData() {
-            const container = document.getElementById('programs-container');
-            
-            if (GOOGLE_SHEET_API_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
-                container.innerHTML = `<div class="p-4 text-red-500 text-xs text-center border border-red-200 rounded-xl">Please insert your Google Apps Script URL in the code.</div>`;
-                return;
-            }
-
-            try {
-                // The fetch request. If CORS fails here, it's an Apps Script deployment issue.
-                const response = await fetch(GOOGLE_SHEET_API_URL);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const data = await response.json();
-                
-                // Clear the "Connecting to database..." text
-                container.innerHTML = '';
-                
-                // Example of rendering the data (adjust based on your JSON structure)
-                data.forEach(item => {
-                    container.innerHTML += `
-                        <div class="bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800/60 p-5 rounded-2xl shadow-sm">
-                            <h3 class="text-lg font-black text-slate-900 dark:text-white">${item.title || 'Untitled'}</h3>
-                            <p class="text-slate-600 dark:text-slate-400 text-xs mt-2">${item.description || ''}</p>
-                        </div>
-                    `;
-                });
-
-            } catch (error) {
-                console.error("Sheet Fetch Error:", error);
-                container.innerHTML = `
-                    <div class="bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-900/40 p-4 rounded-xl text-center">
-                        <span class="text-red-500 dark:text-red-400 text-xs font-bold block mb-1">Failed to load data</span>
-                        <span class="text-[10px] text-slate-500">Check browser console for CORS or network errors.</span>
-                    </div>`;
-            }
-        }
-
-        // Load data when page starts
-        window.addEventListener('DOMContentLoaded', () => {
-            fetchSheetData();
-        });
-
-    </script>
-</body>
-</html>
-<nav class="fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-slate-950/95 backdrop-blur-lg border-t border-slate-100 dark:border-slate-900 px-1 py-2 z-40 shadow-[0_-4px_12px_rgba(0,0,0,0.02)] max-w-md mx-auto rounded-t-3xl transition-colors">
-        <div class="flex justify-around items-center">
-            
-            <button id="nav-btn-programs" onclick="changeTab('page-programs', this)" class="nav-item flex flex-col items-center space-y-1 p-2 text-amber-500 transition-colors">
-                <span class="material-symbols-rounded text-2xl">home</span>
-                <span class="text-[10px] font-bold" data-i18n="navHome">Home</span>
-            </button>
-            
-            <button id="nav-btn-events" onclick="changeTab('page-events', this)" class="nav-item flex flex-col items-center space-y-1 p-2 text-slate-400 dark:text-slate-500 hover:text-amber-500 transition-colors">
-                <span class="material-symbols-rounded text-2xl">event</span>
-                <span class="text-[10px] font-bold" data-i18n="navEvents">Events</span>
-            </button>
-            
-            <button id="nav-btn-bible" onclick="changeTab('page-bible', this)" class="nav-item flex flex-col items-center space-y-1 p-2 text-slate-400 dark:text-slate-500 hover:text-amber-500 transition-colors">
-                <span class="material-symbols-rounded text-2xl">menu_book</span>
-                <span class="text-[10px] font-bold" data-i18n="navBible">Bible</span>
-            </button>
-            
-            <button id="nav-btn-prayers" onclick="changeTab('page-prayers', this)" class="nav-item flex flex-col items-center space-y-1 p-2 text-slate-400 dark:text-slate-500 hover:text-amber-500 transition-colors">
-                <span class="material-symbols-rounded text-2xl">volunteer_activism</span>
-                <span class="text-[10px] font-bold" data-i18n="navPrayers">Prayers</span>
-            </button>
-
-            <button id="nav-btn-about" onclick="changeTab('page-about', this)" class="nav-item flex flex-col items-center space-y-1 p-2 text-slate-400 dark:text-slate-500 hover:text-amber-500 transition-colors">
-                <span class="material-symbols-rounded text-2xl">info</span>
-                <span class="text-[10px] font-bold" data-i18n="navAbout">About</span>
-            </button>
-
-        </div>
-    </nav>
