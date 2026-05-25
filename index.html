@@ -551,3 +551,33 @@
     </script>
 </body>
 </html>
+<nav class="fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-slate-950/95 backdrop-blur-lg border-t border-slate-100 dark:border-slate-900 px-1 py-2 z-40 shadow-[0_-4px_12px_rgba(0,0,0,0.02)] max-w-md mx-auto rounded-t-3xl transition-colors">
+        <div class="flex justify-around items-center">
+            
+            <button id="nav-btn-programs" onclick="changeTab('page-programs', this)" class="nav-item flex flex-col items-center space-y-1 p-2 text-amber-500 transition-colors">
+                <span class="material-symbols-rounded text-2xl">home</span>
+                <span class="text-[10px] font-bold" data-i18n="navHome">Home</span>
+            </button>
+            
+            <button id="nav-btn-events" onclick="changeTab('page-events', this)" class="nav-item flex flex-col items-center space-y-1 p-2 text-slate-400 dark:text-slate-500 hover:text-amber-500 transition-colors">
+                <span class="material-symbols-rounded text-2xl">event</span>
+                <span class="text-[10px] font-bold" data-i18n="navEvents">Events</span>
+            </button>
+            
+            <button id="nav-btn-bible" onclick="changeTab('page-bible', this)" class="nav-item flex flex-col items-center space-y-1 p-2 text-slate-400 dark:text-slate-500 hover:text-amber-500 transition-colors">
+                <span class="material-symbols-rounded text-2xl">menu_book</span>
+                <span class="text-[10px] font-bold" data-i18n="navBible">Bible</span>
+            </button>
+            
+            <button id="nav-btn-prayers" onclick="changeTab('page-prayers', this)" class="nav-item flex flex-col items-center space-y-1 p-2 text-slate-400 dark:text-slate-500 hover:text-amber-500 transition-colors">
+                <span class="material-symbols-rounded text-2xl">volunteer_activism</span>
+                <span class="text-[10px] font-bold" data-i18n="navPrayers">Prayers</span>
+            </button>
+
+            <button id="nav-btn-about" onclick="changeTab('page-about', this)" class="nav-item flex flex-col items-center space-y-1 p-2 text-slate-400 dark:text-slate-500 hover:text-amber-500 transition-colors">
+                <span class="material-symbols-rounded text-2xl">info</span>
+                <span class="text-[10px] font-bold" data-i18n="navAbout">About</span>
+            </button>
+
+        </div>
+    </nav>
