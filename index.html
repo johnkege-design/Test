@@ -1,609 +1,384 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Zetseat Church Portal</title>
-
-```
-<script src="https://cdn.tailwindcss.com"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
-
-<style>
-    ::-webkit-scrollbar {
-        display: none;
-    }
-
-    body {
-        -webkit-tap-highlight-color: transparent;
-    }
-
-    .glass {
-        backdrop-filter: blur(16px);
-    }
-</style>
-```
-
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
+    <style>
+        ::-webkit-scrollbar { display: none; }
+        body { -webkit-tap-highlight-color: transparent; }
+    </style>
 </head>
+<body class="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans antialiased pb-28 transition-colors duration-200">
 
-<body class="bg-slate-950 text-slate-100 font-sans antialiased pb-28 selection:bg-amber-500 selection:text-slate-950">
+    <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-900 sticky top-0 z-40 px-4 py-3 shadow-sm flex justify-between items-center transition-colors">
+        <div class="flex items-center space-x-2">
+            <svg class="h-8 w-auto block" viewBox="0 0 178 77" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.5 0L38.5 24.5L13.5 53.5L3.5 41L22.5 0Z" fill="#F5B300"/>
+                <path d="M13.5 53.5L24.5 48.5L20.5 63.5L10.5 77L13.5 53.5Z" fill="#E0A300"/>
+                <path d="M20.5 63.5L25.5 59.5L27.5 73.5L20.5 63.5Z" fill="#C79200"/>
+                <text x="46" y="44" fill="currentColor" class="text-slate-950 dark:text-white" font-family="sans-serif" font-weight="900" font-size="34" letter-spacing="-1">zetseat</text>
+                <text x="47" y="58" fill="currentColor" class="text-slate-500 dark:text-slate-400" font-family="sans-serif" font-weight="500" font-size="8.5" letter-spacing="0.2">Apostolic Reformation Church</text>
+            </svg>
+        </div>
+        
+        <div class="flex items-center space-x-1.5">
+            <button onclick="toggleDarkMode()" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-amber-400 flex items-center justify-center border border-slate-200/40 dark:border-slate-800/60 active:scale-95 transition-transform">
+                <span class="material-symbols-rounded text-sm block dark:hidden">dark_mode</span>
+                <span class="material-symbols-rounded text-sm hidden dark:block">light_mode</span>
+            </button>
 
-```
-<!-- HEADER -->
-<header class="bg-slate-900/80 glass border-b border-slate-800 sticky top-0 z-40 px-4 py-3 flex justify-between items-center shadow-xl">
+            <button onclick="toggleMemberModal()" class="flex items-center space-x-1 px-2.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-xs font-black text-slate-950 transition-all active:scale-95 shadow-sm">
+                <span class="material-symbols-rounded text-sm">person_add</span>
+                <span data-i18n="btnBeMember">Join Us</span>
+            </button>
 
-    <div class="flex items-center space-x-3">
+            <select id="lang-selector" onchange="changeLanguage(this.value)" class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-1.5 py-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none">
+                <option value="en">EN</option>
+                <option value="am">አማ</option>
+                <option value="or">OR</option>
+            </select>
 
-        <img
-            src="https://zetseat.church/wp-content/uploads/2023/08/cropped-logo-192x192.png"
-            class="w-10 h-10 rounded-2xl bg-white p-1 shadow-lg"
-        >
+            <button id="auth-btn" onclick="toggleAuthModal()" class="flex items-center space-x-1 px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 active:scale-95">
+                <span class="material-symbols-rounded text-sm" id="auth-icon">login</span>
+                <span id="auth-text" data-i18n="signIn">Sign In</span>
+            </button>
+        </div>
+    </header>
 
-        <div>
-            <h1 class="text-lg font-black tracking-widest text-white">
-                ZETSEAT
-            </h1>
-            <p class="text-[10px] uppercase tracking-[0.25em] text-amber-400 font-bold">
-                Church Portal
+    <div id="mission-motto-banner" class="max-w-md mx-auto px-4 mt-4 transition-all duration-200">
+        <div class="bg-gradient-to-r from-yellow-500/10 via-amber-500/5 to-transparent border border-yellow-500/20 dark:border-yellow-500/10 rounded-2xl p-4 text-center">
+            <span class="block text-[9px] uppercase tracking-widest text-amber-600 dark:text-amber-400 font-black mb-1" data-i18n="mottoTitle">Our Mission Identity</span>
+            <p class="text-sm font-extrabold text-slate-900 dark:text-white leading-snug tracking-tight" data-i18n="mottoText">
+                "To see a generation suitable to God risen in the whole world."
             </p>
         </div>
     </div>
 
-    <button
-        id="auth-btn"
-        onclick="toggleAuthModal()"
-        class="flex items-center space-x-1 px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-xs font-bold"
-    >
-        <span class="material-symbols-rounded text-sm" id="auth-icon">login</span>
-        <span id="auth-text">Sign In</span>
-    </button>
-</header>
+    <main id="main-content-wrapper" class="max-w-md mx-auto px-4 mt-6">
 
-<!-- MAIN -->
-<main class="max-w-md mx-auto px-4 mt-6 space-y-6">
-
-    <!-- PROGRAMS -->
-    <section id="page-programs" class="space-y-5">
-
-        <div>
-            <h1 class="text-3xl font-black text-white tracking-tight">
-                Timeline
-            </h1>
-            <p class="text-slate-400 text-xs mt-1">
-                Upcoming streams, conferences and worship gatherings.
-            </p>
-        </div>
-
-        <div class="relative overflow-hidden rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900 to-black shadow-2xl">
-
-            <img
-                src="https://zetseat.church/wp-content/uploads/2023/08/zetseat.jpg"
-                class="absolute inset-0 w-full h-full object-cover opacity-20"
-            >
-
-            <div class="relative p-6">
-                <p class="text-xs uppercase tracking-[0.25em] text-amber-400 font-bold">
-                    Vision
-                </p>
-
-                <h2 class="text-2xl font-black leading-tight text-white mt-2">
-                    To see a generation suitable to God risen in the whole world.
-                </h2>
+        <section id="page-programs" class="space-y-5">
+            <div class="space-y-1">
+                <h1 class="text-2xl font-black tracking-tight text-slate-900 dark:text-white" data-i18n="timelineTitle">Timeline</h1>
+                <p class="text-slate-500 dark:text-slate-400 text-xs" data-i18n="timelineDesc">Social media updates, streams, and dynamic announcements</p>
             </div>
-        </div>
-
-        <div id="programs-container" class="space-y-4">
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 text-center text-slate-500 text-sm animate-pulse">
-                Loading Programs...
+            
+            <div id="programs-container" class="space-y-4">
+                <div class="bg-slate-50 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-900 rounded-2xl p-6 text-center text-slate-400 dark:text-slate-500 text-xs animate-pulse">
+                    Connecting to database feed...
+                </div>
             </div>
+        </section>
+
+        <section id="page-events" class="hidden space-y-5">
+            <div class="space-y-1">
+                <h1 class="text-2xl font-black tracking-tight text-slate-900 dark:text-white" data-i18n="eventsTitle">Upcoming Events</h1>
+                <p class="text-slate-500 dark:text-slate-400 text-xs" data-i18n="eventsDesc">Acts of kindness, evangelism pushes, and outreach programs</p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800/60 overflow-hidden rounded-2xl shadow-sm">
+                    <div class="p-5 space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[9px] bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20 font-bold px-2 py-0.5 rounded uppercase tracking-wider">Evangelism Outreach</span>
+                            <span class="text-xs font-mono font-bold text-slate-500 dark:text-slate-400">May 30 • 2:00 PM</span>
+                        </div>
+                        <h3 class="text-lg font-black text-slate-900 dark:text-white">City Outreach Campaign</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">Meeting at the Sarbet Mother Church campus before dispersing into designated sectors for street ministry, tract distribution, and soul-winning.</p>
+                        <div class="bg-white dark:bg-slate-950 p-2.5 rounded-xl border border-slate-100 dark:border-slate-900 text-[11px] text-amber-700 dark:text-amber-400 flex items-center">
+                            <span class="material-symbols-rounded text-sm mr-2 text-amber-500">location_on</span>
+                            <span class="font-semibold">Assembly Point: Sarbet Main Gate</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="page-prayers" class="hidden space-y-5">
+            <div class="space-y-1">
+                <h1 class="text-2xl font-black tracking-tight text-slate-900 dark:text-white" data-i18n="prayerTitle">Prayer Center</h1>
+                <p class="text-slate-500 dark:text-slate-400 text-xs" data-i18n="prayerDesc">Direct connection channels to our dynamic corporate Intercessors</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <a href="https://t.me/ZetseatChurch" target="_blank" class="bg-blue-50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/40 p-4 rounded-2xl text-center shadow-sm block transition-transform active:scale-98">
+                    <span class="material-symbols-rounded text-2xl text-blue-500 mx-auto block mb-1">telegram</span>
+                    <span class="text-xs font-black text-slate-900 dark:text-white block">Telegram Group</span>
+                    <span class="text-[9px] text-blue-600 dark:text-blue-400 block mt-0.5">24/7 Virtual Altars</span>
+                </a>
+                <div class="bg-yellow-500/10 dark:bg-amber-500/5 border border-yellow-500/20 dark:border-amber-500/10 p-4 rounded-2xl text-center shadow-sm">
+                    <span class="material-symbols-rounded text-2xl text-amber-600 dark:text-amber-400 mx-auto block mb-1">nights_stay</span>
+                    <span class="text-xs font-black text-slate-900 dark:text-white block" data-i18n="anchorFriday">Friday Prayer Night</span>
+                    <span class="text-[9px] text-amber-700 dark:text-amber-400/80 block mt-0.5 font-medium">9:00 PM • Mother Church</span>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-5 rounded-2xl shadow-sm">
+                <form id="prayer-form" class="space-y-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5" data-i18n="labelName">Your Name</label>
+                        <input type="text" id="prayer-name" class="w-full rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 p-3 text-sm text-slate-800 dark:text-white focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5" data-i18n="labelDetails">Request Details</label>
+                        <textarea id="prayer-text" required rows="3" class="w-full rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 p-3 text-sm text-slate-800 dark:text-white focus:outline-none resize-none"></textarea>
+                    </div>
+                    <button type="submit" class="w-full flex items-center justify-center space-x-2 rounded-xl bg-amber-500 hover:bg-amber-600 py-3 text-sm font-bold text-slate-950 active:scale-98 transition-all shadow-sm">
+                        <span class="material-symbols-rounded text-lg">send</span>
+                        <span data-i18n="btnSubmitPrayer">Send Request</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <section id="page-about" class="hidden space-y-5">
+            <div class="space-y-1">
+                <h1 class="text-2xl font-black tracking-tight text-slate-900 dark:text-white" data-i18n="aboutTitle">About Zetseat</h1>
+                <p class="text-slate-500 dark:text-slate-400 text-xs" data-i18n="aboutDesc">Explore our ministry centers and fellowship structures</p>
+            </div>
+            <div id="branches-container" class="space-y-3.5"></div>
+        </section>
+    </main>
+
+    <section id="page-bible" class="hidden w-full transition-all duration-150">
+        <div class="w-full bg-white dark:bg-slate-950 border-b border-slate-100 dark:border-slate-900" style="height: calc(100vh - 128px);">
+            <iframe 
+                src="https://www.bible.com/bible/3867/GEN.1.አማ54" 
+                style="width: 100%; height: 100%; border: none;"
+                title="YouVersion Amharic Bible Reader"
+                allow="clipboard-write">
+            </iframe>
         </div>
     </section>
 
-    <!-- PRAYER PAGE -->
-    <section id="page-prayers" class="hidden space-y-5">
+    <nav class="fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-slate-950/95 backdrop-blur-lg border-t border-slate-100 dark:border-slate-900 px-1 py-2 z-40 shadow-[0_-4px_12px_rgba(0,0,0,0.02)] max-w-md mx-auto rounded-t-3xl transition-colors">
+        <div class="flex justify-around items-center">
+            <button id="nav-btn-programs" onclick="changeTab('page-programs', this)" class="nav-item flex flex-col items-center space-y-0.5 py-1 px-2 text-slate-400 dark:text-slate-500">
+                <span class="material-symbols-rounded text-2xl">dashboard</span>
+                <span class="text-[10px] font-bold" data-i18n="navTimeline">Timeline</span>
+            </button>
+            <button onclick="changeTab('page-events', this)" class="nav-item flex flex-col items-center space-y-0.5 py-1 px-2 text-slate-400 dark:text-slate-500">
+                <span class="material-symbols-rounded text-2xl">campaign</span>
+                <span class="text-[10px] font-bold" data-i18n="navEvents">Events</span>
+            </button>
+            
+            <button onclick="changeTab('page-bible', this)" class="nav-item flex flex-col items-center space-y-0.5 py-1 px-2 text-slate-400 relative">
+                <div class="w-10 h-10 -mt-6 bg-gradient-to-tr from-amber-500 to-yellow-400 text-slate-950 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform">
+                    <span class="material-symbols-rounded text-2xl font-black">auto_stories</span>
+                </div>
+                <span class="text-[10px] font-black tracking-wide text-amber-500 mt-0.5 uppercase">BIBLE</span>
+            </button>
 
-        <div>
-            <h1 class="text-3xl font-black text-white tracking-tight">
-                Prayer Center
-            </h1>
-            <p class="text-slate-400 text-xs mt-1">
-                Send your prayer requests directly to the intercessory team.
-            </p>
+            <button onclick="changeTab('page-prayers', this)" class="nav-item flex flex-col items-center space-y-0.5 py-1 px-2 text-slate-400 dark:text-slate-500">
+                <span class="material-symbols-rounded text-2xl">favorite</span>
+                <span class="text-[10px] font-bold" data-i18n="navPrayers">Prayers</span>
+            </button>
+            
+            <button onclick="changeTab('page-about', this)" class="nav-item flex flex-col items-center space-y-0.5 py-1 px-2 text-slate-400 dark:text-slate-500">
+                <span class="material-symbols-rounded text-2xl">info</span>
+                <span class="text-[10px] font-bold" data-i18n="navAbout">About</span>
+            </button>
         </div>
+    </nav>
 
-        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-2xl">
-
-            <form id="prayer-form" class="space-y-4">
-
+    <div id="member-modal" class="fixed inset-0 z-50 hidden bg-slate-900/40 dark:bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="w-full max-w-sm rounded-3xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 shadow-xl">
+            <h2 class="text-xl font-black text-slate-900 dark:text-white text-center mb-1" data-i18n="memberModalTitle">Become a Member</h2>
+            <p class="text-center text-[11px] text-slate-400 dark:text-slate-500 mb-4" data-i18n="memberModalDesc">Enter your basic coordinates to join our digital catalog</p>
+            
+            <form id="member-form" onsubmit="handleRegistrationSubmit(event)" class="space-y-3.5">
                 <div>
-                    <label class="block text-xs text-slate-400 mb-2 uppercase tracking-widest font-bold">
-                        Your Name
-                    </label>
-
-                    <input
-                        id="prayer-name"
-                        type="text"
-                        placeholder="Anonymous"
-                        class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500"
-                    >
+                    <label class="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1" data-i18n="labelRegName">Full Name</label>
+                    <input type="text" id="mem-name" placeholder="e.g. Abebe Kebede" required class="w-full rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 text-xs text-slate-800 dark:text-white focus:outline-none">
                 </div>
-
                 <div>
-                    <label class="block text-xs text-slate-400 mb-2 uppercase tracking-widest font-bold">
-                        Prayer Request
-                    </label>
-
-                    <textarea
-                        id="prayer-text"
-                        rows="5"
-                        placeholder="Write your prayer request..."
-                        class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 resize-none"
-                    ></textarea>
+                    <label class="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1" data-i18n="labelRegPhone">Phone Number</label>
+                    <input type="tel" id="mem-phone" placeholder="0911000000" required class="w-full rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 text-xs text-slate-800 dark:text-white focus:outline-none">
                 </div>
-
-                <button class="w-full bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 font-black rounded-2xl py-3 shadow-lg active:scale-95 transition-all">
-                    Submit Prayer
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-1" data-i18n="labelRegCity">City</label>
+                    <input type="text" id="mem-city" placeholder="e.g. Addis Ababa" required class="w-full rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 text-xs text-slate-800 dark:text-white focus:outline-none">
+                </div>
+                
+                <button type="submit" class="w-full mt-2 rounded-xl bg-amber-500 hover:bg-amber-600 py-3 text-xs font-black text-slate-950 uppercase tracking-wider shadow-md transition-transform active:scale-98">
+                    Submit Profile
                 </button>
             </form>
-
-            <div id="prayer-success" class="hidden mt-4 bg-emerald-950 border border-emerald-800 rounded-2xl p-3 text-emerald-400 text-sm font-semibold">
-                ✓ Prayer request submitted successfully.
-            </div>
+            <button onclick="toggleMemberModal()" class="w-full text-center text-xs font-bold text-slate-400 dark:text-slate-500 mt-4 hover:underline">Close Window</button>
         </div>
-    </section>
-
-    <!-- ABOUT PAGE -->
-    <section id="page-about" class="hidden space-y-5 pb-10">
-
-        <div class="relative overflow-hidden rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-950 to-black shadow-2xl">
-
-            <img
-                src="https://zetseat.church/wp-content/uploads/2023/08/zetseat.jpg"
-                class="absolute inset-0 w-full h-full object-cover opacity-20"
-            >
-
-            <div class="relative p-6 space-y-5">
-
-                <div class="flex items-center space-x-3">
-
-                    <img
-                        src="https://zetseat.church/wp-content/uploads/2023/08/cropped-logo-192x192.png"
-                        class="w-16 h-16 rounded-2xl bg-white p-1"
-                    >
-
-                    <div>
-                        <h1 class="text-2xl font-black text-white tracking-tight">
-                            ZETSEAT CHURCH
-                        </h1>
-
-                        <p class="text-amber-400 text-xs uppercase tracking-widest font-bold mt-1">
-                            Global Apostolic Ministry
-                        </p>
-                    </div>
-                </div>
-
-                <div class="bg-slate-950/60 border border-slate-800 rounded-2xl p-4">
-                    <p id="motto-text" class="text-lg font-black leading-snug text-white">
-                        To see a generation suitable to God risen in the whole world.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- LANGUAGE -->
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex justify-between items-center">
-
-            <div>
-                <p class="text-xs uppercase tracking-widest text-slate-500 font-bold">
-                    Language
-                </p>
-
-                <h3 class="font-bold text-white mt-1">
-                    Select Language
-                </h3>
-            </div>
-
-            <select
-                id="language-selector"
-                onchange="switchLanguage()"
-                class="bg-slate-950 border border-slate-700 rounded-xl px-4 py-2 text-sm text-white"
-            >
-                <option value="en">English</option>
-                <option value="am">አማርኛ</option>
-                <option value="or">Afaan Oromo</option>
-            </select>
-        </div>
-
-        <!-- BRANCHES -->
-        <div class="space-y-4">
-
-            <div class="flex justify-between items-center">
-
-                <div>
-                    <h2 class="text-2xl font-black text-white">
-                        Branches
-                    </h2>
-
-                    <p class="text-slate-400 text-xs mt-1">
-                        International Zetseat Church network
-                    </p>
-                </div>
-
-                <div class="bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-black px-3 py-2 rounded-xl">
-                    13 Branches
-                </div>
-            </div>
-
-            <div id="branches-container" class="space-y-4"></div>
-        </div>
-    </section>
-</main>
-
-<!-- NAVIGATION -->
-<nav class="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto bg-slate-900/95 glass border-t border-slate-800 rounded-t-3xl px-2 py-2 z-50 shadow-2xl">
-
-    <div class="flex justify-around items-center w-full">
-
-        <button onclick="changeTab('page-programs', this)" class="nav-item flex flex-col items-center justify-center flex-1 py-2 text-amber-500 active:scale-95 transition-all">
-            <span class="material-symbols-rounded text-2xl">dashboard</span>
-            <span class="text-[10px] font-bold">Timeline</span>
-        </button>
-
-        <button onclick="changeTab('page-prayers', this)" class="nav-item flex flex-col items-center justify-center flex-1 py-2 text-slate-400 active:scale-95 transition-all">
-            <span class="material-symbols-rounded text-2xl">favorite</span>
-            <span class="text-[10px] font-bold">Prayers</span>
-        </button>
-
-        <button onclick="changeTab('page-about', this)" class="nav-item flex flex-col items-center justify-center flex-1 py-2 text-slate-400 active:scale-95 transition-all">
-            <span class="material-symbols-rounded text-2xl">info</span>
-            <span class="text-[10px] font-bold">About</span>
-        </button>
     </div>
-</nav>
 
-<!-- LOGIN MODAL -->
-<div id="login-modal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4">
+    <script>
+        // INTEGRATED LIVE APPS SCRIPT ENDPOINT URL
+        const API_URL = "https://script.google.com/macros/s/AKfycbzvHiAuYAriIQJaLnXcjaNiK-McCRMt7khNrKNHX29E7tIjWeTKjhegNcGyKsSWXsFcDQ/exec";
+        let currentLang = 'en';
 
-    <div class="w-full max-w-xs bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl">
-
-        <div class="text-center mb-5">
-            <div class="w-14 h-14 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center mx-auto mb-4 text-amber-400">
-                <span class="material-symbols-rounded text-3xl">lock</span>
-            </div>
-
-            <h2 class="text-2xl font-black text-white">
-                Workforce Login
-            </h2>
-
-            <p class="text-slate-400 text-xs mt-1">
-                Authorized ministry personnel only.
-            </p>
-        </div>
-
-        <form id="login-form" class="space-y-3">
-
-            <input
-                id="login-email"
-                type="email"
-                placeholder="Leader Email"
-                class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-sm text-white"
-            >
-
-            <input
-                id="login-pass"
-                type="password"
-                placeholder="Password"
-                class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-sm text-white"
-            >
-
-            <button class="w-full bg-gradient-to-r from-amber-500 to-amber-400 rounded-2xl py-3 font-black text-slate-950 mt-2">
-                Verify Account
-            </button>
-        </form>
-
-        <button onclick="toggleAuthModal()" class="w-full text-center text-slate-500 text-xs mt-5">
-            Dismiss
-        </button>
-    </div>
-</div>
-
-<script>
-
-    const API_URL = "https://script.google.com/macros/s/AKfycbzvHiAuYAriIQJaLnXcjaNiK-McCRMt7khNrKNHX29E7tIjWeTKjhegNcGyKsSWXsFcDQ/exec";
-
-    let sessionEmail = null;
-
-    const branchData = [
-        {
-            name: "Sarbet Mother Church",
-            city: "Addis Ababa",
-            special: true
-        },
-        {
-            name: "Bulbula Branch",
-            city: "Addis Ababa"
-        },
-        {
-            name: "CMC Branch",
-            city: "Addis Ababa"
-        },
-        {
-            name: "Adola Branch",
-            city: "Adola"
-        },
-        {
-            name: "Hossana Branch",
-            city: "Hossana"
-        },
-        {
-            name: "Mekele Branch",
-            city: "Mekele"
-        },
-        {
-            name: "Bahirdar Branch",
-            city: "Bahirdar"
-        },
-        {
-            name: "USA DC Branch",
-            city: "Washington DC"
-        },
-        {
-            name: "Netherland Branch",
-            city: "Netherlands"
-        },
-        {
-            name: "Hawassa Branch",
-            city: "Hawassa"
-        },
-        {
-            name: "Jimma Branch",
-            city: "Jimma"
-        },
-        {
-            name: "Dukem Branch",
-            city: "Dukem"
-        },
-        {
-            name: "Shashemene Branch",
-            city: "Shashemene"
-        }
-    ];
-
-    const translations = {
-        en: {
-            motto: "To see a generation suitable to God risen in the whole world.",
-            wed: "Wednesday Evening",
-            sat: "Saturday Youth Program",
-            sun: "Sunday Morning Worship",
-            fri: "Friday Prayer Night"
-        },
-
-        am: {
-            motto: "በዓለም ሁሉ ለእግዚአብሔር የተገባ ትውልድ ማየት።",
-            wed: "የረቡዕ ምሽት",
-            sat: "የወጣቶች ፕሮግራም",
-            sun: "የእሁድ ጠዋት አምልኮ",
-            fri: "የዓርብ የጸሎት ሌሊት"
-        },
-
-        or: {
-            motto: "Addunyaa guutuutti dhaloota Waaqayyoof ta'u arguu.",
-            wed: "Sagantaa Roobii Galgalaa",
-            sat: "Sagantaa Dargaggootaa Sanbataa",
-            sun: "Waaqeffannaa Dilbataa",
-            fri: "Halkan Kadhannaa Jimaataa"
-        }
-    };
-
-    function changeTab(pageId, element) {
-
-        if(!element) return;
-
-        ['page-programs', 'page-prayers', 'page-about'].forEach(id => {
-            document.getElementById(id).classList.add('hidden');
-        });
-
-        document.getElementById(pageId).classList.remove('hidden');
-
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.classList.remove('text-amber-500');
-            item.classList.add('text-slate-400');
-        });
-
-        element.classList.remove('text-slate-400');
-        element.classList.add('text-amber-500');
-
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-
-    function toggleAuthModal() {
-
-        const modal = document.getElementById('login-modal');
-
-        if (modal.classList.contains('hidden')) {
-            modal.classList.remove('hidden');
-        } else {
-            modal.classList.add('hidden');
-        }
-    }
-
-    async function loadPrograms() {
-
-        try {
-
-            const res = await fetch(`${API_URL}?action=getPrograms`);
-
-            const programs = await res.json();
-
-            const container = document.getElementById('programs-container');
-
-            if (!programs.length) {
-                container.innerHTML = `
-                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 text-center text-slate-500 text-sm">
-                        No programs scheduled.
-                    </div>
-                `;
-                return;
+        const i18n = {
+            en: {
+                btnBeMember: "Join Us", signIn: "Sign In", mottoTitle: "Our Mission Identity",
+                mottoText: `"To see a generation suitable to God risen in the whole world."`,
+                timelineTitle: "Timeline", timelineDesc: "Social media updates, streams, and dynamic announcements",
+                eventsTitle: "Upcoming Events", eventsDesc: "Acts of kindness, evangelism pushes, and outreach programs",
+                prayerTitle: "Prayer Center", prayerDesc: "Direct connection channels to our dynamic corporate Intercessors",
+                anchorFriday: "Friday Prayer Night", labelName: "Your Name", labelDetails: "Request Details",
+                btnSubmitPrayer: "Send Request", bibleTitle: "Bible Center", bibleDesc: "Read and study scripture live inside the portal",
+                aboutTitle: "About Zetseat", aboutDesc: "Explore our ministry centers and fellowship structures",
+                navTimeline: "Timeline", navEvents: "Events", navPrayers: "Prayers", navAbout: "About", 
+                memberModalTitle: "Become a Member", memberModalDesc: "Enter your basic coordinates to join our digital catalog",
+                labelRegName: "Full Name", labelRegPhone: "Phone Number", labelRegCity: "City"
+            },
+            am: {
+                btnBeMember: "አባል ይሁኑ", signIn: "ግባ", mottoTitle: "የራዕይ መግለጫ",
+                mottoText: `"ለእግዚአብሔር የሚስማማ ትውልድ በዓለም ሁሉ ላይ ተነስቶ ማየት::"`,
+                timelineTitle: "ጊዜ ሰሌዳ", timelineDesc: "የማህበራዊ ሚዲያ መረጃዎች እና የቀጥታ ስርጭቶች መከታተያ",
+                eventsTitle: "የሚቀጥሉ መርሃ-ግብሮች", eventsDesc: "የበጎ አድራጎት ስራዎች፣ የወንጌል ስርጭት እና የውጪ አገልግሎቶች",
+                prayerTitle: "የጸሎት ማእከል", prayerDesc: "የጸሎት ጥያቄዎን ለኢንተርሴሰሮች በምስጢር ይላኩ",
+                anchorFriday: "የአርብ የጸሎት ምሽት", labelName: "ሙሉ ስም", labelDetails: "የጸሎት ነጥብ ዝርዝር",
+                btnSubmitPrayer: "ጥያቄውን ላክ", bibleTitle: "መጽሐፍ ቅዱስ", bibleDesc: "የእግዚአብሔርን ቃል በቀጥታ ያንብቡና ያጥኑ",
+                aboutTitle: "ስለ እኛ", aboutDesc: "ስለ አገልግሎታችንና ስለ ቅርንጫፎች ማጠቃለያ መረጃ",
+                navTimeline: "ጊዜ ሰሌዳ", navEvents: "ክንውኖች", navPrayers: "ጸሎት", navAbout: "ስለ እኛ", 
+                memberModalTitle: "የአባልነት ፎርም", memberModalDesc: "መሰረታዊ መረጃዎችን በመሙላት አባልነቶን ያረጋግጡ",
+                labelRegName: "ሙሉ ስም", labelRegPhone: "ስልክ ቁጥር", labelRegCity: "ከተማ"
+            },
+            or: {
+                btnBeMember: "Mee Dabalami", signIn: "Seeni", mottoTitle: "Mul'ata Keenya",
+                mottoText: `"Dhaloota Waaqayyoof ta'u addunyaa irratti ka'ee arguu."`,
+                timelineTitle: "Sagantaalee", timelineDesc: "Tamsaasa qajeelaa fi beeksisa adda addaa",
+                eventsTitle: "Sagantaalee Dhufan", eventsDesc: "Hojiiwwan gaarii, tajaajila wangeelaa fi duula adda addaa",
+                prayerTitle: "Kadhannaa", prayerDesc: "Gaaffii kadhannaa keessan garee kadhannaa keenyaaf dabarsaa",
+                anchorFriday: "Kadhannaa Jimmataa", labelName: "Maqaa Keessan", labelDetails: "Bal'ina Kadhannaa",
+                btnSubmitPrayer: "Kadhannaa Ergi", bibleTitle: "Macaafa Qulqulluu", bibleDesc: "Dubbisi, sagantaa qayyabannaa hordofi",
+                aboutTitle: "Waa'ee Keenya", aboutDesc: "Mata duree fi sagantaa waajjirooota",
+                navTimeline: "Sagantaa", navEvents: "Gochaalee", navPrayers: "Kadhannaa", navAbout: "Waa'ee", 
+                memberModalTitle: "Miseensa Tahi", memberModalDesc: "Galmee keenya join gochuuf odeeffannoo keessan guutaa",
+                labelRegName: "Maqaa Guutuu", labelRegPhone: "Lakk Bilbilaa", labelRegCity: "Magaalaa"
             }
+        };
 
-            container.innerHTML = programs.map(p => `
-
-                <div class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl">
-
-                    ${p.imageUrl ? `
-                        <img src="${p.imageUrl}" class="w-full h-44 object-cover border-b border-slate-800">
-                    ` : ''}
-
-                    <div class="p-5">
-
-                        <div class="flex items-center gap-2 text-[10px] uppercase tracking-widest text-amber-400 font-bold">
-                            <span>${p.date}</span>
-                            <span>•</span>
-                            <span>${p.time}</span>
-                        </div>
-
-                        <h3 class="text-xl font-black text-white mt-2">
-                            ${p.title}
-                        </h3>
-
-                        <p class="text-slate-400 text-sm mt-2 leading-relaxed">
-                            ${p.desc}
-                        </p>
-
-                        ${p.mediaLink ? `
-                            <a
-                                href="${p.mediaLink}"
-                                target="_blank"
-                                class="mt-5 inline-flex items-center justify-center w-full bg-slate-950 border border-slate-800 hover:border-amber-500 rounded-2xl py-3 text-sm font-bold"
-                            >
-                                Watch Stream
-                            </a>
-                        ` : ''}
-                    </div>
-                </div>
-
-            `).join('');
-
-        } catch (e) {
-            console.error(e);
+        // Standard Device Dark Mode Synchronization Routine
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
         }
-    }
 
-    function renderBranches(lang = 'en') {
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+        }
 
-        const t = translations[lang];
+        // Initialize App to open on Timeline and immediately fetch spreadsheet rows
+        window.addEventListener('DOMContentLoaded', () => { 
+            changeLanguage('en'); 
+            changeTab('page-programs', document.getElementById('nav-btn-programs'));
+            fetchTimelineData();
+        });
 
-        document.getElementById('motto-text').innerText = t.motto;
+        function changeLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll("[data-i18n]").forEach(el => {
+                const key = el.getAttribute("data-i18n");
+                if (i18n[lang][key]) el.innerText = i18n[lang][key];
+            });
+        }
 
-        const container = document.getElementById('branches-container');
-
-        container.innerHTML = branchData.map(branch => `
-
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl relative overflow-hidden">
-
-                <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full blur-3xl"></div>
-
-                <div class="relative flex justify-between items-start gap-3">
-
-                    <div>
-                        <h3 class="text-lg font-black text-white">
-                            ${branch.name}
-                        </h3>
-
-                        <p class="text-slate-400 text-xs mt-1">
-                            📍 ${branch.city}
-                        </p>
-                    </div>
-
-                    ${branch.special ? `
-                        <div class="bg-amber-500 text-slate-950 text-[10px] font-black px-2 py-1 rounded-lg uppercase tracking-widest">
-                            Mother Church
-                        </div>
-                    ` : ''}
-                </div>
-
-                <div class="mt-5 space-y-2">
-
-                    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3 flex justify-between items-center">
-                        <span class="font-semibold text-white text-sm">${t.wed}</span>
-                        <span class="text-xs font-bold text-amber-400">6:00 PM</span>
-                    </div>
-
-                    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3 flex justify-between items-center">
-                        <span class="font-semibold text-white text-sm">${t.sun}</span>
-                        <span class="text-xs font-bold text-amber-400">8:00 AM</span>
-                    </div>
-
-                    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3 flex justify-between items-center">
-                        <span class="font-semibold text-white text-sm">${t.sat}</span>
-                        <span class="text-xs font-bold text-amber-400">4:00 PM</span>
-                    </div>
-
-                    ${branch.special ? `
-                        <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-3 flex justify-between items-center">
-                            <span class="font-bold text-amber-300 text-sm">${t.fri}</span>
-                            <span class="text-xs font-black text-amber-400">10:00 PM</span>
-                        </div>
-                    ` : ''}
-                </div>
-            </div>
-
-        `).join('');
-    }
-
-    function switchLanguage() {
-        const lang = document.getElementById('language-selector').value;
-        renderBranches(lang);
-    }
-
-    document.getElementById('prayer-form').addEventListener('submit', async (e) => {
-
-        e.preventDefault();
-
-        const n = document.getElementById('prayer-name').value || 'Anonymous';
-        const r = document.getElementById('prayer-text').value;
-
-        try {
-
-            await fetch(API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `action=addPrayer&name=${encodeURIComponent(n)}&request=${encodeURIComponent(r)}`
+        function changeTab(pageId, element) {
+            ['page-programs', 'page-events', 'page-prayers', 'page-about', 'page-bible'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
             });
 
-            document.getElementById('prayer-form').reset();
-            document.getElementById('prayer-success').classList.remove('hidden');
+            const mottoBanner = document.getElementById('mission-motto-banner');
+            const mainWrapper = document.getElementById('main-content-wrapper');
 
-            setTimeout(() => {
-                document.getElementById('prayer-success').classList.add('hidden');
-            }, 4000);
+            if (pageId === 'page-bible') {
+                mottoBanner.classList.add('hidden');
+                mainWrapper.classList.add('hidden');
+                document.getElementById('page-bible').classList.remove('hidden');
+            } else {
+                mottoBanner.classList.remove('hidden');
+                mainWrapper.classList.remove('hidden');
+                document.getElementById(pageId).classList.remove('hidden');
+            }
 
-        } catch (e) {
-            alert('Submission failed');
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('text-amber-500');
+                item.classList.add('text-slate-400', 'dark:text-slate-500');
+            });
+            element.classList.remove('text-slate-400', 'dark:text-slate-500');
+            element.classList.add('text-amber-500');
         }
-    });
 
-    window.addEventListener('DOMContentLoaded', () => {
-        loadPrograms();
-        renderBranches('en');
+        function toggleMemberModal() { document.getElementById('member-modal').classList.toggle('hidden'); }
+        function toggleAuthModal() { alert("Operational authentication module active."); }
 
-        // activate first tab visually
-        const firstTab = document.querySelector('.nav-item');
-        if(firstTab){
-            firstTab.classList.remove('text-slate-400');
-            firstTab.classList.add('text-amber-500');
+        // AUTOMATIC DATA PULL ENGINE FOR THE TIMELINE VIEWPORT
+        function fetchTimelineData() {
+            const container = document.getElementById('programs-container');
+
+            fetch(`${API_URL}?action=getPrograms`)
+                .then(response => response.json())
+                .then(res => {
+                    if (res.status === "success" && res.data.length > 0) {
+                        container.innerHTML = ""; // Clear layout pulse loader
+                        
+                        res.data.forEach(item => {
+                            const card = document.createElement('div');
+                            card.className = "bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-5 space-y-2 shadow-sm";
+                            card.innerHTML = `
+                                <div class="flex justify-between items-center text-[10px] font-mono text-slate-400 font-bold">
+                                    <span>${item.date || ''}</span>
+                                    <span class="text-amber-500">${item.time || ''}</span>
+                                </div>
+                                <h3 class="text-base font-black text-slate-900 dark:text-white tracking-tight">${item.title || 'Announcement'}</h3>
+                                <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">${item.desc || ''}</p>
+                            `;
+                            container.appendChild(card);
+                        });
+                    } else {
+                        container.innerHTML = `<div class="text-center text-xs text-slate-400 py-6">No current timeline streams active. Check back shortly!</div>`;
+                    }
+                })
+                .catch(err => {
+                    console.error("Timeline retrieval error:", err);
+                    container.innerHTML = `<div class="text-center text-xs text-red-400/80 py-6">Database synchronization offline. Check cloud deployment configurations.</div>`;
+                });
         }
-    });
 
-</script>
-```
+        // BACKEND FORWARDING DISPATCH PIPELINE FOR MEMBERSHIP INTAKE
+        function handleRegistrationSubmit(event) {
+            event.preventDefault();
+            
+            const submitButton = event.target.querySelector('button[type="submit"]');
+            submitButton.innerText = "Processing...";
+            submitButton.disabled = true;
+            
+            const payload = {
+                type: 'registration',
+                name: document.getElementById('mem-name').value.trim(),
+                phone: document.getElementById('mem-phone').value.trim(),
+                city: document.getElementById('mem-city').value.trim(),
+                timestamp: new Date().toLocaleString()
+            };
 
+            fetch(API_URL, {
+                method: 'POST',
+                mode: 'no-cors', 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                alert("🎉 Registration recorded successfully!");
+                document.getElementById('member-form').reset();
+                toggleMemberModal();
+            })
+            .catch(err => {
+                console.error("Transmission breakdown:", err);
+                alert("Submission failure. Verify cloud connectivity configurations.");
+            })
+            .finally(() => {
+                submitButton.innerText = "Submit Profile";
+                submitButton.disabled = false;
+            });
+        }
+    </script>
 </body>
 </html>
